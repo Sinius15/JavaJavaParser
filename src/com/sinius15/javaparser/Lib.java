@@ -39,43 +39,29 @@ public class Lib {
         KEYWORDS.add("int");
         KEYWORDS.add("interface");
         KEYWORDS.add("long");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-        KEYWORDS.add("");
-
-
-
-
-        , , "",
-                "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "",
-                "", "", "", "", "", "native",
-                "new", "null", "package", "private", "protected", "public",
-                "return", "short", "static", "strictfp", "super", "switch",
-                "synchronized", "this", "throw", "throws", "transient", "true",
-                "try", "void", "volatile", "while"
+        KEYWORDS.add("new");
+        KEYWORDS.add("null");
+        KEYWORDS.add("package");
+        KEYWORDS.add("native");
+        KEYWORDS.add("private");
+        KEYWORDS.add("protected");
+        KEYWORDS.add("public");
+        KEYWORDS.add("return");
+        KEYWORDS.add("short");
+        KEYWORDS.add("static");
+        KEYWORDS.add("strictfp");
+        KEYWORDS.add("super");
+        KEYWORDS.add("switch");
+        KEYWORDS.add("synchronized");
+        KEYWORDS.add("this");
+        KEYWORDS.add("throw");
+        KEYWORDS.add("throws");
+        KEYWORDS.add("transient");
+        KEYWORDS.add("true");
+        KEYWORDS.add("try");
+        KEYWORDS.add("void");
+        KEYWORDS.add("volatile");
+        KEYWORDS.add("while");
     }
 
 }
