@@ -25,7 +25,7 @@ public class JavaParser {
 
             int c;
             while ((c = inputStream.read()) != -1) {
-                processChar((char)c);
+                processFileChar((char)c);
             }
 
             inputStream.close();
@@ -34,11 +34,21 @@ public class JavaParser {
         }
     }
 
-    private void processChar(char c){
+    private void processFileChar(char c){
+        if(Lib.isWordChar(c)){
+            curWord += c;
+        }else{
+            if(curWord.equals("package")){
 
+            }else if(curWord.equals("import")){
+
+            }
+            curWord = "";
+        }
     }
 
     public static void main(String[] args){
         JavaParser parser = new JavaParser(new File("res/testfile.java"));
+        parser.toString();
     }
 }
