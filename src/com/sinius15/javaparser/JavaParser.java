@@ -3,52 +3,37 @@ package com.sinius15.javaparser;
 import com.sinius15.javaparser.ast.JavaFile;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Sinius15 on 6-2-2015.
  */
 public class JavaParser {
 
-    ArrayList<JavaFile> files = new ArrayList<JavaFile>();
+    private final ArrayList<JavaFile> files = new ArrayList<JavaFile>();
 
-    public JavaParser(File file){
-        processFile(file);
+    public void addFile(File file) throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get(file.getPath()));
+        String data = new String(encoded, StandardCharsets.UTF_8);
+        JavaFile jf = new JavaFile(file.getName(), data);
+        jf.process();
+        files.add(jf);
     }
 
-    String curWord;
-
-    private void processFile(File file){
-        curWord = "";
-        try {
-            FileReader inputStream = new FileReader(file.getAbsoluteFile());
-
-            int c;
-            while ((c = inputStream.read()) != -1) {
-                processFileChar((char)c);
-            }
-
-            inputStream.close();
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    private void processFileChar(char c){
-        if(Lib.isWordChar(c)){
-            curWord += c;
-        }else{
-            if(curWord.equals("package")){
-
-            }else if(curWord.equals("import")){
-
-            }
-            curWord = "";
-        }
+    public List<JavaFile> getFiles() {
+        return files;
     }
 
     public static void main(String[] args){
-        JavaParser parser = new JavaParser(new File("res/testfile.java"));
-        parser.toString();
+        JavaParser parser = new JavaParser();
+        try {
+            parser.addFile(new File("res/testfile.java"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
