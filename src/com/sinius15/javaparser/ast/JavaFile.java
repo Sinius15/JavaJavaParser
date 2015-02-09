@@ -2,7 +2,7 @@ package com.sinius15.javaparser.ast;
 
 import com.sinius15.javaparser.ParseException;
 import com.sinius15.javaparser.Parseable;
-import com.sinius15.javaparser.Util;
+import com.sinius15.javaparser.factories.ParsedClassFactory;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -20,7 +20,7 @@ public  class JavaFile implements Parseable{
 
     private final ArrayList<String> imports = new ArrayList<String>();
 
-    private final ArrayList<PClass> classes = new ArrayList<PClass>();
+    private final ArrayList<ParsedClass> classes = new ArrayList<ParsedClass>();
 
 
     public JavaFile(String name, String rawData){
@@ -31,29 +31,20 @@ public  class JavaFile implements Parseable{
     @Override
     public void parse() throws ParseException {
         Pattern packagePattern = Pattern.compile("package\\s+([\\w\\.]+);");
-        Matcher m = packagePattern.matcher(rawData);
-        if(m.find()){
-            packageDeclaration = m.group(1);
+        Matcher matcher = packagePattern.matcher(rawData);
+        if(matcher.find()){
+            packageDeclaration = matcher.group(1);
         }
 
         Pattern importPattern = Pattern.compile("import\\s+([\\w\\.]+\\*?);");
-        m = importPattern.matcher(rawData);
-        while(m.find()){
-            imports.add(m.group(1));
+        matcher = importPattern.matcher(rawData);
+        while(matcher.find()){
+            imports.add(matcher.group(1));
         }
-        //todo: annotaitons
-        Pattern classPattern = Pattern.compile("\\s*(public|private|static|abstract|final)\\s+class\\s+(\\w+)\\s*(<[\\w,\\s]*>)?\\s+((extends\\s+\\w+)|(implements\\s+\\w+( ,\\w+)*))?\\s*\\{");
-        m =classPattern.matcher(rawData);
-        while(m.find()){
-            int classEnd = Util.getCloseBracket(rawData, m.end(), '{', '}');
+        ParsedClassFactory classFactory = new ParsedClassFactory();
+        classes.addAll(classFactory.findTopLevelClasses(rawData));
 
-            PClass found = new PClass(rawData.substring(m.start(),m.end()-1), rawData.substring(m.end(), classEnd));
-            classes.add(found);
-            System.out.println(found);
-
-        }
-
-        for(PClass c : classes){
+        for(ParsedClass c : classes){
             c.parse();
         }
     }
@@ -66,7 +57,7 @@ public  class JavaFile implements Parseable{
         return rawData;
     }
 
-    public ArrayList<PClass> getClasses() {
+    public ArrayList<ParsedClass> getClasses() {
         return classes;
     }
 

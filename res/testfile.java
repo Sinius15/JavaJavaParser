@@ -4,24 +4,13 @@ import com.sinius15.javaparser.*;
 import com.sinius15.javaparser.JavaParser;
 import com.sinius15.javaparser.ast.JavaFile;
 
-public class SomeClass {
-
-    public SomeClass(int ast, boolean bool){
-
-        int i = 0;
-
+public class MainClass1 {
+    public class InnerClass1 {
+        public class InnerInnerA {
+            public class InnerInnerInnerA {}
+        }
     }
-
-    public static void main(String[] args){
-
-    }
-
-    public class adsf {
-
-    }
-
+    public class InnerClass2 {}
+    public class InnerClass3 {}
 }
-
-private class TARS{
-
-}
+public class MainClass2 {}

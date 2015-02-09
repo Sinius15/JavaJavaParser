@@ -1,6 +1,7 @@
 package com.sinius15.javaparser;
 
 import com.sinius15.javaparser.ast.JavaFile;
+import com.sinius15.javaparser.ast.ParsedClass;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -43,5 +44,22 @@ public class JavaParser {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        for(ParsedClass clz : parser.getFiles().get(0).getClasses()){
+            System.out.println(clz.getName());
+            printChildern(clz, 1);
+        }
+    }
+    public static void printChildern(ParsedClass claz, int tabs){
+        for(ParsedClass clz : claz.getChildClasses()){
+            System.out.println(getTabs(tabs) + clz.getName());
+            printChildern(clz, tabs+1);
+        }
+    }
+    public static String getTabs(int i){
+        String s = "";
+        for(int j = 0; j < i; j++)
+            s += "\t";
+        return s;
     }
 }
