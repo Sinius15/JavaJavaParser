@@ -16,4 +16,12 @@ public class SomeClass {
 
     }
 
+    public class adsf {
+
+    }
+
+}
+
+private class TARS{
+
 }

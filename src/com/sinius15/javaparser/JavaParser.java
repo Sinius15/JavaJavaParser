@@ -20,8 +20,13 @@ public class JavaParser {
         byte[] encoded = Files.readAllBytes(Paths.get(file.getPath()));
         String data = new String(encoded, StandardCharsets.UTF_8);
         JavaFile jf = new JavaFile(file.getName(), data);
-        jf.process();
         files.add(jf);
+    }
+
+    public void parse() throws ParseException {
+        for(JavaFile file : files){
+            file.parse();
+        }
     }
 
     public List<JavaFile> getFiles() {
@@ -32,7 +37,10 @@ public class JavaParser {
         JavaParser parser = new JavaParser();
         try {
             parser.addFile(new File("res/testfile.java"));
+            parser.parse();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }
