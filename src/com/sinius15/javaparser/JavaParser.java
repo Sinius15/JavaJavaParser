@@ -46,13 +46,13 @@ public class JavaParser {
         }
 
         for(ParsedClass clz : parser.getFiles().get(0).getClasses()){
-            System.out.println(clz.getName());
+            System.out.println(clz);
             printChildren(clz, 1);
         }
     }
     public static void printChildren(ParsedClass claz, int tabs){
         for(ParsedClass clz : claz.getChildClasses()){
-            System.out.println(getTabs(tabs) + clz.getName());
+            System.out.println(getTabs(tabs) + clz);
             printChildren(clz, tabs + 1);
         }
     }

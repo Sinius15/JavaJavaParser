@@ -4,21 +4,11 @@ import com.sinius15.javaparser.*;
 import com.sinius15.javaparser.JavaParser;
 import com.sinius15.javaparser.ast.JavaFile;
 
-public class MainClass1 {
-    public class InnerClass1 {
-        public class InnerInnerA {
-            public class InnerInnerInnerA {
-                //body van de InnerInnerInner class
-            }
-        }
-    }
-    public class InnerClass2 {
-
-    }
-    public static final abstract class InnerClass3 {
-
-    }
-}
-public class MainClass2 {
-
-}
+class Test{}
+class publicclass {}
+private static class so$__mOTherClass {}
+public class Test {}
+public static abstract final class Test {}
+public static abstract final class Test extends com.sinius15.Extend_$s {}
+public static abstract final class Test extends LOL implements InterfaceA, In$_terfaceB, IntefaceC {}
+public static abstract final class Test <A, B extends Runnable<A>> extends LOL implements InterfaceA, InterfaceB, IntefaceC {}

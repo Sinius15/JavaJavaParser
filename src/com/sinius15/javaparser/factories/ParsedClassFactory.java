@@ -3,6 +3,7 @@ package com.sinius15.javaparser.factories;
 import com.sinius15.javaparser.RegexLib;
 import com.sinius15.javaparser.Util;
 import com.sinius15.javaparser.ast.ParsedClass;
+import com.sinius15.javaparser.ast.Visibility;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -27,11 +28,21 @@ public class ParsedClassFactory {
         ArrayList<ParsedClass> out = new ArrayList<ParsedClass>();
 
         Matcher matcher;
-        while((matcher = RegexLib.classDefinitionPattern.matcher(data)).find()){
+        while((matcher = RegexLib.secondClassDefPatterh.matcher(data)).find()){
             int classEnd = Util.getCloseBracket(data, matcher.end(), '{', '}');
 
-            ParsedClass found = new ParsedClass(data.substring(matcher.start(), matcher.end()-1),
-                    data.substring(matcher.end(), classEnd));
+            String decleration = matcher.group(1);
+            Visibility visibility = Visibility.getFromString(matcher.group(2));
+            String body =  data.substring(matcher.end(), classEnd);
+            boolean isStatic = matcher.group(3) != null;
+            boolean isAbstract = matcher.group(4) != null;
+            boolean isFinal = matcher.group(5) != null;
+            String name = matcher.group(6);
+            String generics = matcher.group(8);
+            String extending = matcher.group(10);
+            String implenting = matcher.group(12);
+
+            ParsedClass found = new ParsedClass(visibility,isStatic, isAbstract, isFinal, trimIfPossible(name), trimIfPossible(generics), trimIfPossible(extending), trimIfPossible(implenting), trimIfPossible(decleration), trimIfPossible(body));
             out.add(found);
 
             data = data.substring(classEnd+1);
@@ -39,18 +50,8 @@ public class ParsedClassFactory {
         return out;
     }
 
-    public ArrayList<ParsedClass> findAllClasses(String data){
-        ArrayList<ParsedClass> out = new ArrayList<ParsedClass>();
-
-        Matcher matcher = RegexLib.classDefinitionPattern.matcher(data);
-        while(matcher.find()){
-            int classEnd = Util.getCloseBracket(data, matcher.end(), '{', '}');
-
-            ParsedClass found = new ParsedClass(data.substring(matcher.start(), matcher.end()-1),
-                    data.substring(matcher.end(), classEnd));
-            out.add(found);
-        }
-        return out;
+    private String trimIfPossible(String name) {
+        return name == null ? name : name.trim();
     }
 
 }

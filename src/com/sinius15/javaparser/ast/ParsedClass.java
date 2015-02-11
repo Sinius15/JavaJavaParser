@@ -5,45 +5,33 @@ import com.sinius15.javaparser.Parseable;
 import com.sinius15.javaparser.factories.ParsedClassFactory;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Sijmen on 6-2-2015.
  */
 public class ParsedClass implements Parseable {
 
-    public static final KeyWord[] possibleKeywords = {KeyWord.PUBLIC, KeyWord.PRIVATE, KeyWord.ABSTRACT, KeyWord.FINAL, KeyWord.STATIC};
+    public final Visibility visibility;
+    public final boolean isStatic, isAbstract, isFinal;
+    public final String decleration, body, name, genericTypes, extending, implementing;
 
-    private final String decleration, body;
-
-    private String name;
-
-    private final ArrayList<String> genericTypes = new ArrayList<String>();
-    private final ArrayList<KeyWord> prefixes = new ArrayList<KeyWord>();
     private final ArrayList<ParsedClass> childClasses = new ArrayList<ParsedClass>();
 
-    public ParsedClass(String decleration, String body) {
+    public ParsedClass(Visibility visibility,boolean isStatic, boolean isAbstract, boolean isFinal, String name, String genericTypes, String extending, String implementing, String decleration, String body) {
+        this.visibility = visibility;
+        this.isStatic = isStatic;
+        this.isAbstract = isAbstract;
+        this.isFinal = isFinal;
+        this.name = name;
+        this.genericTypes = genericTypes;
+        this.extending = extending;
+        this.implementing = implementing;
         this.decleration = decleration;
         this.body = body;
     }
 
     @Override
     public void parse() throws ParseException {
-        name = decleration.trim();
-
-        for(KeyWord word : possibleKeywords){
-            if(decleration.contains(word.toString())){
-                prefixes.add(word);
-            }
-        }
-        Pattern brakcetPattern = Pattern.compile("<([\\w,\\s]*)>", Pattern.DOTALL);
-        Matcher m = brakcetPattern.matcher(decleration);
-        if(m.find())
-            for(String s : m.group(1).split(",")){
-                genericTypes.add(s.trim());
-            }
-
         childClasses.addAll(ParsedClassFactory.getInstance().findTopLevelClasses(body));
 
         for(ParsedClass clz : childClasses){
@@ -53,9 +41,17 @@ public class ParsedClass implements Parseable {
 
     @Override
     public String toString() {
-        return decleration + "{" + body + "}";
+        return "ParsedClass{" +
+                "implementing='" + implementing + '\'' +
+                ", visibility=" + visibility +
+                ", isStatic=" + isStatic +
+                ", isAbstract=" + isAbstract +
+                ", isFinal=" + isFinal +
+                ", name='" + name + '\'' +
+                ", genericTypes='" + genericTypes + '\'' +
+                ", extending='" + extending + '\'' +
+                '}';
     }
-
 
     public String getName() {
         return name;
@@ -64,4 +60,5 @@ public class ParsedClass implements Parseable {
    public ArrayList<ParsedClass> getChildClasses() {
         return childClasses;
    }
+
 }
