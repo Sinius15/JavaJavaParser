@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Sinius on 6-2-2015.
  */
-public  class JavaFile implements Parseable{
+public class JavaFile implements Parseable{
 
     private final String name;
     private final String rawData;
@@ -41,8 +41,7 @@ public  class JavaFile implements Parseable{
         while(matcher.find()){
             imports.add(matcher.group(1));
         }
-        ParsedClassFactory classFactory = new ParsedClassFactory();
-        classes.addAll(classFactory.findTopLevelClasses(rawData));
+        classes.addAll(ParsedClassFactory.getInstance().findTopLevelClasses(rawData));
 
         for(ParsedClass c : classes){
             c.parse();

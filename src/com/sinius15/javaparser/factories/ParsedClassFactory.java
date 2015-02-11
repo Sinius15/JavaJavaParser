@@ -1,30 +1,33 @@
 package com.sinius15.javaparser.factories;
 
+import com.sinius15.javaparser.RegexLib;
 import com.sinius15.javaparser.Util;
 import com.sinius15.javaparser.ast.ParsedClass;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Sinius15 on 9-2-2015.
  */
 public class ParsedClassFactory {
 
-    public static final Pattern classPattern = Pattern.compile("\\s*(public|private|static|abstract|final)\\s+class\\s+(\\w+)\\s*(<[\\w,\\s]*>)?\\s*((extends\\s+\\w+)|(implements\\s+\\w+( ,\\w+)*))?\\s*\\{");
-
+        private static final ParsedClassFactory instance = new ParsedClassFactory();
     //todo: annotaitons
 
-    public ParsedClassFactory(){
+    private ParsedClassFactory(){
 
+    }
+
+    public static ParsedClassFactory getInstance(){
+        return instance;
     }
 
     public ArrayList<ParsedClass> findTopLevelClasses(String data){
         ArrayList<ParsedClass> out = new ArrayList<ParsedClass>();
 
         Matcher matcher;
-        while((matcher = classPattern.matcher(data)).find()){
+        while((matcher = RegexLib.classDefinitionPattern.matcher(data)).find()){
             int classEnd = Util.getCloseBracket(data, matcher.end(), '{', '}');
 
             ParsedClass found = new ParsedClass(data.substring(matcher.start(), matcher.end()-1),
@@ -39,7 +42,7 @@ public class ParsedClassFactory {
     public ArrayList<ParsedClass> findAllClasses(String data){
         ArrayList<ParsedClass> out = new ArrayList<ParsedClass>();
 
-        Matcher matcher = classPattern.matcher(data);
+        Matcher matcher = RegexLib.classDefinitionPattern.matcher(data);
         while(matcher.find()){
             int classEnd = Util.getCloseBracket(data, matcher.end(), '{', '}');
 

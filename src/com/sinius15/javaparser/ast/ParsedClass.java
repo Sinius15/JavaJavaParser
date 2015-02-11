@@ -44,8 +44,7 @@ public class ParsedClass implements Parseable {
                 genericTypes.add(s.trim());
             }
 
-        ParsedClassFactory clzFactory = new ParsedClassFactory();
-        childClasses.addAll(clzFactory.findTopLevelClasses(body));
+        childClasses.addAll(ParsedClassFactory.getInstance().findTopLevelClasses(body));
 
         for(ParsedClass clz : childClasses){
             clz.parse();

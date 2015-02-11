@@ -7,10 +7,18 @@ import com.sinius15.javaparser.ast.JavaFile;
 public class MainClass1 {
     public class InnerClass1 {
         public class InnerInnerA {
-            public class InnerInnerInnerA {}
+            public class InnerInnerInnerA {
+                //body van de InnerInnerInner class
+            }
         }
     }
-    public class InnerClass2 {}
-    public class InnerClass3 {}
+    public class InnerClass2 {
+
+    }
+    public static final abstract class InnerClass3 {
+
+    }
 }
-public class MainClass2 {}
+public class MainClass2 {
+
+}

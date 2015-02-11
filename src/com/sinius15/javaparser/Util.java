@@ -7,7 +7,7 @@ public class Util {
 
     public static int getCloseBracket(String input, int startBracketLocation, char openBracket, char closeBracket){
         int level = 1;
-        for(int pointer = startBracketLocation+1; pointer <input.length(); pointer++){
+        for(int pointer = startBracketLocation; pointer <input.length(); pointer++){
             char curChar = input.charAt(pointer);
             if(curChar == openBracket)
                 level++;

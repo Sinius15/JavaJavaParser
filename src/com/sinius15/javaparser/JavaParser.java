@@ -47,13 +47,13 @@ public class JavaParser {
 
         for(ParsedClass clz : parser.getFiles().get(0).getClasses()){
             System.out.println(clz.getName());
-            printChildern(clz, 1);
+            printChildren(clz, 1);
         }
     }
-    public static void printChildern(ParsedClass claz, int tabs){
+    public static void printChildren(ParsedClass claz, int tabs){
         for(ParsedClass clz : claz.getChildClasses()){
             System.out.println(getTabs(tabs) + clz.getName());
-            printChildern(clz, tabs+1);
+            printChildren(clz, tabs + 1);
         }
     }
     public static String getTabs(int i){
