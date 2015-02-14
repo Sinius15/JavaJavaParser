@@ -3,6 +3,8 @@ package com.sinius15.javaparser.ast;
 import com.sinius15.javaparser.ParseException;
 import com.sinius15.javaparser.Parseable;
 import com.sinius15.javaparser.factories.ParsedClassFactory;
+import com.sinius15.javaparser.factories.ParsedMethodFactory;
+import com.sinius15.javaparser.factories.ParsedVariableDecelerationFactory;
 
 import java.util.ArrayList;
 
@@ -15,7 +17,9 @@ public class ParsedClass implements Parseable {
     public final boolean isStatic, isAbstract, isFinal;
     public final String decleration, body, name, genericTypes, extending, implementing;
 
-    private final ArrayList<ParsedClass> childClasses = new ArrayList<ParsedClass>();
+    private final ArrayList<ParsedClass> childClasses = new ArrayList<>();
+    private final ArrayList<ParsedMethod> methods = new ArrayList<>();
+    private final ArrayList<ParsedVariableDeceleration> variables = new ArrayList<>();
 
     public ParsedClass(Visibility visibility,boolean isStatic, boolean isAbstract, boolean isFinal, String name, String genericTypes, String extending, String implementing, String decleration, String body) {
         this.visibility = visibility;
@@ -28,11 +32,14 @@ public class ParsedClass implements Parseable {
         this.implementing = implementing;
         this.decleration = decleration;
         this.body = body;
+        System.out.println(this);
     }
 
     @Override
     public void parse() throws ParseException {
-        childClasses.addAll(ParsedClassFactory.getInstance().findTopLevelClasses(body));
+        String parsed = ParsedClassFactory.getInstance().findTopLevelClasses(body, childClasses);
+        parsed = ParsedMethodFactory.getInstance().addTopLevelMethods(parsed, methods);
+        parsed = ParsedVariableDecelerationFactory.getInstance().addTopLevelDeclarations(parsed, variables);
 
         for(ParsedClass clz : childClasses){
             clz.parse();

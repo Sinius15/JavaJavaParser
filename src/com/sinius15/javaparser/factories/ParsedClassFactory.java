@@ -13,9 +13,9 @@ import java.util.regex.Matcher;
  */
 public class ParsedClassFactory {
 
-        private static final ParsedClassFactory instance = new ParsedClassFactory();
-    //todo: annotaitons
+    private static final ParsedClassFactory instance = new ParsedClassFactory();
 
+    //todo: annotaitons
     private ParsedClassFactory(){
 
     }
@@ -24,14 +24,13 @@ public class ParsedClassFactory {
         return instance;
     }
 
-    public ArrayList<ParsedClass> findTopLevelClasses(String data){
-        ArrayList<ParsedClass> out = new ArrayList<ParsedClass>();
+    public String findTopLevelClasses(String data, ArrayList<ParsedClass> toAdd){
 
         Matcher matcher;
-        while((matcher = RegexLib.secondClassDefPatterh.matcher(data)).find()){
+        while((matcher = RegexLib.classDefPattern.matcher(data)).find()){
             int classEnd = Util.getCloseBracket(data, matcher.end(), '{', '}');
 
-            String decleration = matcher.group(1);
+            String deceleration = matcher.group(1);
             Visibility visibility = Visibility.getFromString(matcher.group(2));
             String body =  data.substring(matcher.end(), classEnd);
             boolean isStatic = matcher.group(3) != null;
@@ -40,18 +39,14 @@ public class ParsedClassFactory {
             String name = matcher.group(6);
             String generics = matcher.group(8);
             String extending = matcher.group(10);
-            String implenting = matcher.group(12);
+            String implanting = matcher.group(12);
 
-            ParsedClass found = new ParsedClass(visibility,isStatic, isAbstract, isFinal, trimIfPossible(name), trimIfPossible(generics), trimIfPossible(extending), trimIfPossible(implenting), trimIfPossible(decleration), trimIfPossible(body));
-            out.add(found);
+            ParsedClass found = new ParsedClass(visibility,isStatic, isAbstract, isFinal, Util.trimIfPossible(name), Util.trimIfPossible(generics), Util.trimIfPossible(extending), Util.trimIfPossible(implanting), Util.trimIfPossible(deceleration), Util.trimIfPossible(body));
+            toAdd.add(found);
 
             data = data.substring(classEnd+1);
         }
-        return out;
-    }
-
-    private String trimIfPossible(String name) {
-        return name == null ? name : name.trim();
+        return data;
     }
 
 }

@@ -41,7 +41,7 @@ public class JavaFile implements Parseable{
         while(matcher.find()){
             imports.add(matcher.group(1));
         }
-        classes.addAll(ParsedClassFactory.getInstance().findTopLevelClasses(rawData));
+        String parsed = ParsedClassFactory.getInstance().findTopLevelClasses(rawData, classes);
 
         for(ParsedClass c : classes){
             c.parse();

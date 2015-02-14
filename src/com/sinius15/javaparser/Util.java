@@ -20,4 +20,14 @@ public class Util {
 
     }
 
+    public static String trimIfPossible(String name) {
+        return name == null ? name : name.trim();
+    }
+
+    public static String[] trimIfPossible(String[] prefixes) {
+        for(int i = 0; i< prefixes.length; i++){
+            prefixes[i] = prefixes[i] == null ? prefixes[i] : prefixes[i].trim();
+        }
+        return prefixes;
+    }
 }
