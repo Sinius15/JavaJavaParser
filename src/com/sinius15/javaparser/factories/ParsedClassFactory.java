@@ -44,7 +44,7 @@ public class ParsedClassFactory {
             ParsedClass found = new ParsedClass(visibility,isStatic, isAbstract, isFinal, Util.trimIfPossible(name), Util.trimIfPossible(generics), Util.trimIfPossible(extending), Util.trimIfPossible(implanting), Util.trimIfPossible(deceleration), Util.trimIfPossible(body));
             toAdd.add(found);
 
-            data = data.substring(classEnd+1);
+            data = data.substring(0, matcher.start()) + data.substring(classEnd+1);
         }
         return data;
     }

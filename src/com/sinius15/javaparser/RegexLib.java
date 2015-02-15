@@ -20,5 +20,5 @@ public class RegexLib {
     // http://regexr.com/3acto
     public static final Pattern classDefPattern = Pattern.compile("((public\\s+|private\\s+)?(static\\s+)?(abstract\\s+)?(final\\s+)?class\\s+([\\w_$]+)(\\s*<([\\w,\\s].*)>)?(\\s+extends\\s+([\\w\\.\\_\\$]+))?(\\s+implements\\s([\\w\\.\\_\\$\\,\\s]+))?\\s*)\\{");
     public static final Pattern methodDefPattern = Pattern.compile("((?:public|private|protected)\\s+)?((?:(?:static|final|native|synchronized|abstract)\\s+)*)([\\$_\\w\\<\\>\\[\\]]+)\\s+([\\$_\\w]+)\\(([^\\)]*)\\)?\\s*\\{");
-    public static final Pattern varDeclPattern = Pattern.compile("(\\w+)\\s+(\\w+)(\\s*=\\s*([\\w\\s(),]+))*;");
+    public static final Pattern varDeclPattern = Pattern.compile("((?:public|private|protected)\\s+)?((?:(?:static|final|native)\\s+)*)(\\w+)\\s+(\\w+)(\\s*=\\s*([\\w\\s(),]+))*;");
 }
