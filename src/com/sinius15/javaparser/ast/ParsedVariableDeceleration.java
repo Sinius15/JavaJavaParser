@@ -22,18 +22,17 @@ public class ParsedVariableDeceleration implements Parseable{
         this.initialVariable = initialVariable;
         this.modifiers = modifiers;
         this.visibility = visibility;
-        System.out.println(this);
     }
 
     @Override
     public String toString() {
-        return "ParsedVariableDeceleration{" +
-                "visibility=" + visibility +
-                ", modifiers=" + Arrays.toString(modifiers) +
-                ", type='" + type + '\'' +
-                ", name='" + name + '\'' +
-                ", initialVariable='" + initialVariable + '\'' +
-                '}';
+        String out = "";
+        out += "Variable Decleration " + name + System.lineSeparator();
+        out += "\t- visibility: \t" + visibility + System.lineSeparator();
+        out += "\t- modifiers: \t" + Arrays.toString(modifiers) + System.lineSeparator();
+        out += "\t- type: \t" + type + System.lineSeparator();
+        out += "\t- initialVariable: \t" + initialVariable;
+        return out;
     }
 
     @Override

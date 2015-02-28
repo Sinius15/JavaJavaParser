@@ -11,7 +11,7 @@ public static abstract final class Test <A, B extends Runnable<A>> extends LOL i
     Cookie cook;
     Cookie caak = new Cookie();
     Cookie ceak = new Cookea(1, 2, 3);
-    Cookie casd = new Cookie(i j, cook);
+    public static final Cookie casd = new Cookie(i j, cook);
 
     public String toStringgg(Lol b){
 

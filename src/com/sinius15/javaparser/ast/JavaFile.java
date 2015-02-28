@@ -68,5 +68,22 @@ public class JavaFile implements Parseable{
         return packageDeclaration;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder =  new StringBuilder();
+        builder.append(name);
+        builder.append(System.lineSeparator());
+        builder.append("\t- package: "+packageDeclaration);
+        for(String im : imports){
+            builder.append(System.lineSeparator());
+            builder.append("\t- imports: " + im);
+        }
+        for(ParsedClass clz : classes){
+            builder.append(System.lineSeparator());
+            builder.append("\t"+clz.toString().replaceAll("(\n+)", "\n\t"));
+        }
+
+        return builder.toString();
+    }
 
 }

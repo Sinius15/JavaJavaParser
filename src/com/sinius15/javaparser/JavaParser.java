@@ -34,16 +34,24 @@ public class JavaParser {
         return files;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder =  new StringBuilder();
+        for(JavaFile file : files){
+            builder.append(file.toString());
+            builder.append(System.getProperty("line.separator"));
+        }
+        return builder.toString();
+    }
+
     public static void main(String[] args){
         JavaParser parser = new JavaParser();
         try {
             parser.addFile(new File("res/testfile.java"));
             parser.parse();
-        } catch (IOException e) {
-        e.printStackTrace();
-    } catch (ParseException e) {
-        e.printStackTrace();
-    }
-
+            System.out.println(parser);
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

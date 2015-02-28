@@ -24,7 +24,6 @@ public class ParsedMethod implements Parseable{
         this.type = type;
         this.arguments = arguments;
         this.body = body;
-        System.out.println(this);
     }
 
     @Override
@@ -34,12 +33,12 @@ public class ParsedMethod implements Parseable{
 
     @Override
     public String toString() {
-        return "ParsedMethod{" +
-                "arguments='" + arguments + '\'' +
-                ", visibility=" + visibility +
-                ", prefixes=" + Arrays.toString(prefixes) +
-                ", type='" + type + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+        String out = "";
+        out += "Method " + name + System.lineSeparator();
+        out += "\t- arguments: \t" + Arrays.toString(prefixes) + System.lineSeparator();
+        out += "\t- visibility: \t" + visibility + System.lineSeparator();
+        out += "\t- prefixes: \t" + Arrays.toString(prefixes) + System.lineSeparator();
+        out += "\t- type: \t" + type + System.lineSeparator();
+        return out;
     }
 }

@@ -32,7 +32,6 @@ public class ParsedClass implements Parseable {
         this.implementing = implementing;
         this.decleration = decleration;
         this.body = body;
-        System.out.println(this);
     }
 
     @Override
@@ -48,16 +47,26 @@ public class ParsedClass implements Parseable {
 
     @Override
     public String toString() {
-        return "ParsedClass{" +
-                "implementing='" + implementing + '\'' +
-                ", visibility=" + visibility +
-                ", isStatic=" + isStatic +
-                ", isAbstract=" + isAbstract +
-                ", isFinal=" + isFinal +
-                ", name='" + name + '\'' +
-                ", genericTypes='" + genericTypes + '\'' +
-                ", extending='" + extending + '\'' +
-                '}';
+        String out = "";
+        out += "Class " + name +  System.lineSeparator();
+        out += "\t- visibility: \t" + visibility + System.lineSeparator();
+        out += "\t- isStatic: \t" + isStatic + System.lineSeparator();
+        out += "\t- isAbstract: \t" + isAbstract + System.lineSeparator();
+        out += "\t- isFinal: \t\t" + isFinal + System.lineSeparator();
+        out += "\t- implementing: " + implementing +  System.lineSeparator();
+        out += "\t- genericTypes: " + genericTypes +  System.lineSeparator();
+        out += "\t- extending: \t" + extending + System.lineSeparator();
+        for(ParsedVariableDeceleration var : variables){
+            out += "\t"+var.toString().replaceAll("(\n+)", "\n\t") + System.lineSeparator();
+        }
+        for(ParsedMethod method : methods){
+            out += "\t"+method.toString().replaceAll("(\n+)", "\n\t") + System.lineSeparator();
+        }
+        for(ParsedClass clz : childClasses){
+            out += "\t"+clz.toString().replaceAll("(\n+)", "\n\t") + System.lineSeparator();
+        }
+
+        return out;
     }
 
     public String getName() {
